@@ -62,7 +62,7 @@ describe.only('API tests', () => {
         })
     });
 
-    it.only('Should default to English when language param is invalid', () => {
+    it.only('Should default to English when language parameter is invalid', () => {
         cy.request({
             method: 'GET',
             url: 'https://open-weather13.p.rapidapi.com/city/london/INVALID',

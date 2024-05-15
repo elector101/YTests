@@ -27,8 +27,7 @@ class LogInPage {
     submit() {
       const button = cy.get(`#login-button`);
       button.click();
-    }
-
+    }    
   }
   
   export default LogInPage;
