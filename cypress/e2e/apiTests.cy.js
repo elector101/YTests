@@ -4,7 +4,7 @@ describe.only('API tests', () => {
             method: 'GET',
             url: 'https://open-weather13.p.rapidapi.com/city/london/EN',
             headers: {
-                'X-RapidAPI-Key': 'c1ab03d992msh2f3093fe336477bp15c2e5jsn4500773b0fca',
+                'X-RapidAPI-Key': 'e3c1fd0549msh057154cbb0ad718p156d9bjsn0377f4c5e34f',
                 'X-RapidAPI-Host': 'open-weather13.p.rapidapi.com'
             }
             }).then((response) =>{
@@ -20,7 +20,7 @@ describe.only('API tests', () => {
             method: 'GET',
             url: 'https://open-weather13.p.rapidapi.com/city/234/EN',
             headers: {
-                'X-RapidAPI-Key': 'c1ab03d992msh2f3093fe336477bp15c2e5jsn4500773b0fca',
+                'X-RapidAPI-Key': 'e3c1fd0549msh057154cbb0ad718p156d9bjsn0377f4c5e34f',
                 'X-RapidAPI-Host': 'open-weather13.p.rapidapi.com'
             }
             }).then((response) =>{
@@ -54,13 +54,27 @@ describe.only('API tests', () => {
             url: 'https://open-weather13.p.rapidapi.com/city/london/EN',
             failOnStatusCode: false,
             headers: {
-                'X-RapidAPI-Key': 'c1ab03d992msh2f3093fe336477bp15c2e5jsn4500773b0fca',
+                'X-RapidAPI-Key': 'e3c1fd0549msh057154cbb0ad718p156d9bjsn0377f4c5e34f',
                 'X-RapidAPI-Host': 'invalidhost'
             }
             }).then((response) =>{
                 expect(response.status).to.eq(400);
         })
     });
-});
 
-//You have exceeded the MONTHLY quota for Requests on your current plan, BASIC. Upgrade your plan at https://rapidapi.com/worldapi/api/open-weather13
+    it.only('Should default to English when language param is invalid', () => {
+        cy.request({
+            method: 'GET',
+            url: 'https://open-weather13.p.rapidapi.com/city/london/INVALID',
+            headers: {
+                'X-RapidAPI-Key': 'e3c1fd0549msh057154cbb0ad718p156d9bjsn0377f4c5e34f',
+                'X-RapidAPI-Host': 'open-weather13.p.rapidapi.com'
+            }
+            }).then((response) =>{
+                expect(response.status).to.eq(200);
+                cy.writeFile('cypress/responses/data.json', response);
+                expect(response.body).to.have.property('weather');
+                expect(response.body.name).to.be.eq('London');
+        })
+    });
+});
