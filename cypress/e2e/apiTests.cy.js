@@ -48,7 +48,7 @@ describe.only('API tests', () => {
         })
     });
 
-    it.only('Should return 400 when the API key is invalid', () => {
+    it.only('Should return 400 when the API host is invalid', () => {
         cy.request({
             method: 'GET',
             url: 'https://open-weather13.p.rapidapi.com/city/london/EN',
